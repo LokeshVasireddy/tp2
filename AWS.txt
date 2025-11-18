@@ -1,0 +1,22 @@
+sudo apt update
+sudo apt-get install docker.io
+sudo apt install git
+sudo apt install nano
+
+git branch –M main
+git remote add origin <https url>
+git push –u origin main
+
+Git clone https://github.com/LokeshVasireddy/tp.git(in sudo)
+
+cd AWS as below, next ls to 
+
+nano Dockerfile
+
+FROM nginx:alpine
+COPY . /usr/share/ngnix/html
+Step k:  Write the following data in Dockerfile and click ctrl+o  Enter and then ctrl-x
+
+sudo docker build –t mywebapp .
+
+sudo docker run –d –p 80:80 mywebapp
