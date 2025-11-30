@@ -1,0 +1,241 @@
+###############################################
+# BASIC GIT COMMANDS — INITIAL SETUP
+###############################################
+
+# Check git version
+git --version
+
+# Initialize a new git repository in current folder
+git init
+
+# Configure user details (important for commits)
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+
+# View current config
+git config --list
+
+
+###############################################
+# CLONING & REMOTES
+###############################################
+
+# Clone a remote repository
+git clone https://github.com/user/repo.git
+
+# Add a remote origin
+git remote add origin https://github.com/user/repo.git
+
+# Show all remotes
+git remote -v
+
+# Change remote URL
+git remote set-url origin https://github.com/new/repo.git
+
+
+###############################################
+# STAGING & COMMITTING
+###############################################
+
+# Check status of working directory
+git status
+
+# Add a single file to staging
+git add file.txt
+
+# Add all files to staging
+git add .
+
+# Unstage a file (remove from staging)
+git reset file.txt
+
+# Commit staged changes
+git commit -m "Your commit message"
+
+# Commit skipping staging area (-a)
+git commit -am "Commit tracked files directly"
+
+
+###############################################
+# VIEWING CHANGES
+###############################################
+
+# Show line-by-line changes in working directory
+git diff
+
+# Show diff of what’s staged
+git diff --cached
+
+# Show commit history
+git log
+
+# prettier one-line log
+git log --oneline --graph --decorate --all
+
+# Show details of a specific commit
+git show <commit-id>
+
+
+###############################################
+# BRANCHING
+###############################################
+
+# List branches
+git branch
+
+# Create a new branch
+git branch new-feature
+
+# Switch to a branch
+git checkout new-feature
+
+# Create AND switch to new branch (modern)
+git switch -c new-feature
+
+# Delete a branch
+git branch -d new-feature
+
+# Force delete (if not merged)
+git branch -D new-feature
+
+
+###############################################
+# MERGING & REBASING
+###############################################
+
+# Merge branch into current branch
+git merge new-feature
+
+# Rebase onto another branch (rewrite history)
+git rebase main
+
+# Abort a merge conflict
+git merge --abort
+
+# Abort a rebase
+git rebase --abort
+
+
+###############################################
+# PUSHING & PULLING
+###############################################
+
+# Push to origin main branch
+git push origin main
+
+# Push and set upstream (first time)
+git push -u origin main
+
+# Pull latest changes
+git pull
+
+# Fetch remote changes without merging
+git fetch
+
+
+###############################################
+# STASHING
+###############################################
+
+# Save uncommitted work temporarily
+git stash
+
+# Save with message
+git stash save "WIP - testing"
+
+# List stash entries
+git stash list
+
+# Apply latest stash (keep stash)
+git stash apply
+
+# Pop stash (apply and delete)
+git stash pop
+
+# Drop specific stash
+git stash drop stash@{2}
+
+
+###############################################
+# RESET (UNDO OPERATIONS)
+###############################################
+
+# Soft reset — keep files, move HEAD only
+git reset --soft HEAD~1
+
+# Mixed reset — default, unstages files
+git reset HEAD~1
+
+# Hard reset — delete all changes (DANGEROUS)
+git reset --hard HEAD~1
+
+# Restore file from last commit
+git restore file.txt
+
+
+###############################################
+# TAGGING
+###############################################
+
+# Create a lightweight tag
+git tag v1.0
+
+# Create an annotated tag
+git tag -a v1.0 -m "Release v1.0"
+
+# Push tags
+git push origin --tags
+
+# View all tags
+git tag
+
+
+###############################################
+# CREATE PATCH FILES (VERY IMPORTANT)
+###############################################
+
+# 1) Create patch for single commit
+git format-patch -1 <commit-id>
+
+# Example
+git format-patch -1 HEAD
+
+# 2) Create patch for last 3 commits
+git format-patch -3
+
+# 3) Create patch file for specific commit range
+git format-patch <old-commit>..<new-commit>
+
+# 4) Create patch for only one file (diff format)
+git diff > changes.patch
+
+# 5) Create patch for staged changes
+git diff --cached > staged.patch
+
+# 6) Apply a patch file
+git apply changes.patch
+
+# 7) Apply and commit patch automatically
+git am < patch-file.patch >
+
+
+###############################################
+# CLEANING WORKSPACE
+###############################################
+
+# Remove untracked files (DANGEROUS)
+git clean -f
+
+# Remove untracked directories also
+git clean -fd
+
+###############################################
+# ADVANCED: SHOW WHO CHANGED A LINE
+###############################################
+
+# Blame shows who edited each line of a file
+git blame file.txt
+
+###############################################
+# END OF COMPLETE IMPORTANT GIT COMMANDS
+###############################################
