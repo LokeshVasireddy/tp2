@@ -30,9 +30,15 @@ FROM redis:latest
 CMD ["redis-server"]
 Docker Commands (Step-by-step):
 
-docker build -t redisnew  
-docker run --name myredisnew -d redisnew
+docker build -t redisnew 
+docker run --name myredisnew -p 6379:6379 -d redisnew 
+//docker run --name myredisnew -d redisnew
 docker ps
+docker login
+docker commit 0e993d2009a1 budarajumadhurika/redis1
+8. docker images
+docker push budarajumadhurika/redis1
+ docker logout
 
 
 
@@ -45,6 +51,76 @@ docker-compose.yaml
 docker-compose up –d
 3.to stop
 docker-compose down
+
+
+
+
+
+networks:
+  app-net:
+
+volumes:
+  db-data:
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    networks:
+      - app-net
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: demo_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-net
+
+
+1. Start your containers:
+
+   sh
+   docker-compose up -d
+   
+
+2. Open a shell inside the Postgres container:
+
+   sh
+   docker exec -it <container_name> psql -U demo -d demo_db
+   
+
+   Replace <container_name> with your Postgres container name (you can check with docker ps). As here
+docker exec -it compose-lab-db-1 psql -U demo -d demo_db
+
+3. Run SQL commands inside psql:
+
+   sql
+   CREATE TABLE users (
+       id SERIAL PRIMARY KEY,
+       name VARCHAR(50),
+       email VARCHAR(100)
+   );
+INSERT INTO users (name, email) VALUES
+   ('Alice', 'alice@example.com'),
+   ('Bob', 'bob@example.com');
+
+4. Verify data:
+   sql
+   SELECT * FROM users;
+
+
+
+
+
+
+
 
 Nagois
 ------
@@ -78,7 +154,7 @@ o	minikube start --driver=docker
 3.	Verify Minikube is running:
 4.	minikube status
 
-Weebhooks
+Webhooks
 --------
 
 
