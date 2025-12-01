@@ -53,9 +53,47 @@ docker-compose up –d
 docker-compose down
 
 
+Example:
+--------
+services:
+  wordpress:  # WordPress service
+    image: wordpress:latest
+    ports:
+      - "8080:80"  # Map port 80 of the container to port 8080 of the host
+    environment:
+      WORDPRESS_DB_HOST: db:3306  # Database host
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db  # Ensures the db service starts first
+
+  db:  # MySQL service
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+Example:
+--------
+version: "3.9"
+
+services:
+  web1:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+
+  web2:
+    image: nginx:alpine
+    ports:
+      - "8081:80"
 
 
-
+Example:
+-------
 networks:
   app-net:
 
@@ -82,6 +120,16 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - app-net
+II. Run the setup:
+
+docker compose up -d
+
+III. Open your browser and visit: http://localhost:8080.
+
+IV. Expected Output:
+
+Nginx welcome page is displayed.
+
 
 
 1. Start your containers:
